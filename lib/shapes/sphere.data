@@ -1,0 +1,14 @@
+# sphere
+identity
+screen -3 -3 3 3
+pixels  500 500
+sphere-t 1 -1 0 0
+box-t 2 2 2 1 0 0
+rotate-x -30
+rotate-z 30
+#move 0 0 -5
+#transform
+render-perspective-stereo 1 0 5 -1 0 5
+#render-parallel
+file sphere.ppm
+end

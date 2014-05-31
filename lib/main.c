@@ -3,7 +3,6 @@
 #include <string.h>
 #include "renderer.h"
 #include "interpret.h"
-#include "import.h"
 
 matrix * m;
 int render_test();

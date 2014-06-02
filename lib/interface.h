@@ -19,6 +19,20 @@
 
 #define INTERFACE_HQ0DKX03
 
+#define SPHERE_ID   1
+#define RECT_ID     2
+
+/* Use an object struct to represent 
+ * the different things that will be
+ * bouncing around
+ */
+typedef struct object {
+    int id;
+    double x, y, z; //current x, y, z
+    matrix * current; //current position matrix
+    double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
+};
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

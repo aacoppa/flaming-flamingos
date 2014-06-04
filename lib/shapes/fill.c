@@ -190,7 +190,6 @@ void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lin
             acc_l -= y_diff_l;
             x_l += inc_l;
         }
-        //printf("x1, x2, y, %d, %d, %d\n", x_l, x_r, y_curr);
         add_line(x_l, y_curr, x_r, y_curr, lines);
         y_curr++;
     }

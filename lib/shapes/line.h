@@ -11,7 +11,6 @@
 #include <string.h>
 #include <unistd.h>
 #include "../screen.h" //Screen pixel drawing
-#include "../file_renderer.h" //File pixel drawing
 
 //#define WIDTH 500
 //#define HEIGHT 500

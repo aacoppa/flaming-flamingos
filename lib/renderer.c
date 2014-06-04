@@ -62,7 +62,6 @@ void convert_to_eye_coordinates( double ex, double ey, double ez, matrix * to_re
     }
     delete_matrix(*to_render);
     to_render = temp;
-    return temp;
 }
 
 void convert_from_screen(matrix * to_render) {

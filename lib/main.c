@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "renderer.h"
-#include "interpret.h"
+#include "shapes/sphere.h"
+#include "shapes/box.h"
+#include "shapes/point.h"
+#include "matrix/matrix.h"
+#include "matrix/vector.h"
 
 matrix * m;
 int render_test();
 int main(int argc, char ** argv) {
-    //m = import_object("teapot.3dt");
-    if(argc < 2) {
-        return render_test();
-    } else return read_file(argv[1]);
+    return render_test();
 }
 
 int render_test() {

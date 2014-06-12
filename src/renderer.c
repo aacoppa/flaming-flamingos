@@ -91,8 +91,15 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
          */
         if(get_direction(p1, p2, p3, eye) < 0) {
             //Thus we can cull right here
-            startX += 3;
-            continue;
+            /*
+             *
+             *
+             *
+             *
+             * COMMENTED OUT CULLING FOR TESTING
+             */
+            //startX += 3;
+            //continue;
         }
         //Draw the three lines
         //
@@ -112,16 +119,17 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */
-        /*
         matrix * m = fill_triangle( p1, p2, p3);
         int p = 0;
+        /* Then just loop through the matrix drawing a line for every two
+         * columns (one column represents one endpoint)
+         */
         while(p < m->width) {
             draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p][2],
                         m->mat[p+1][0], m->mat[p+1][1], m->mat[p+1][2],
                         *(Uint32 *)&color);
             p += 2;
         }
-        */
         //End of filling
         startX += 3;
     }

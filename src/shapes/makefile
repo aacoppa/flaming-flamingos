@@ -1,5 +1,5 @@
-main: box.o vector.o matrix.o screen.o fill.o transformations.o renderer.o line.o
-	gcc main.c renderer.o line.o box.o vector.o matrix.o screen.o fill.o transformations.o -lm `sdl-config --cflags --libs`
+main: box.o vector.o matrix.o screen.o fill.o transformations.o renderer.o line.o sphere.o
+	gcc main.c renderer.o line.o box.o vector.o matrix.o screen.o fill.o transformations.o sphere.o -lm `sdl-config --cflags --libs`
 
 transformations.o:
 	gcc -c ../matrix/transformations.c
@@ -17,6 +17,11 @@ line.o:
 	gcc -c line.c
 renderer.o:
 	gcc -c ../renderer.c
+sphere.o:
+	gcc -c sphere.c
 
 clean:
 	rm *.o
+run:
+	make
+	./a.out

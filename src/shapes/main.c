@@ -4,6 +4,7 @@
 #include "fill.h"
 #include "../screen.h"
 #include "../renderer.h"
+#include "sphere.h"
 
 /*void print_point(struct point p) {
     printf("Point (%f, %f, %f)\n", p.x, p.y, p.z);
@@ -17,23 +18,48 @@ int main(int argc, char ** argv) {
     */
     //fill_test();
     struct point p1;
-    p1.y = 100;
-    p1.x = 100;
+    p1.x = 1;
+    p1.y = 1;
+    p1.z = 0;
 
     struct point p2;
-    p2.y = 70;
-    p2.x = 110;
+    p2.x = -1;
+    p2.y = -1;
+    p2.z = 0;
 
     struct point p3;
-    p3.y = 90;
-    p3.x = 95;
+    p3.x = 1;
+    p3.y = -1;
+    p3.z = 0;
 
     SDL_Color s;
     s.r = 0;
     s.g = 0;
     s.b = 255;
-    matrix * m = fill_triangle(p3, p2, p1);
-    draw_to_screen(0, 0, -5, m, *(Uint32 *)&s);
+    init_screen(-2, -2, 2, 2, 500, 500);
+    matrix transformer = init_identity(4);
+
+    matrix * m = malloc(sizeof(matrix));
+
+    *m = init_matrix(4, 4);
+    /*add_triangle_to_render(p1.x, p1.y, p1.z,
+            p2.x, p2.y, p2.z,
+            p3.x, p3.y, p3.z,
+            m);
+            */
+    draw_sphere(-1, 0, 0, 1, m);
+    int i = 0;
+    while(i < 300) {
+        printf("%d.1\n", i);
+        matrix to_render = multiply_matrix(transformer, *m);
+        print_matrix(to_render);
+        printf("\n\n");
+        printf("%d.2\n", i);
+        draw_to_screen(0, 0, -5, &to_render, *(Uint32 *)&s);
+        printf("%d.3\n", i);
+        i++;
+        SDL_Delay(20);
+    }
     return 0;
 }
 /*

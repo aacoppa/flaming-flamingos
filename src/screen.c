@@ -54,9 +54,34 @@ void configureScreen(int w, int h){
 
     screen = SDL_SetVideoMode(image_width, image_height, 32, SDL_SWSURFACE);
     SDL_WM_SetCaption(SCREEN_NAME, NULL);
+
+    int i, j;
+    i = j = 0;
+    zbuffer = malloc(sizeof(zbuff **) * image_width);
+    while(i < image_width) {
+        zbuffer[i] = malloc(sizeof(zbuff) *
+                image_height);
+        while(j < image_height) {
+            zbuffer[i][j] = malloc(sizeof(zbuff));
+            zbuffer[i][j]->color = 0;
+            zbuffer[i][j]->z = -1000000;
+            j++;
+        }
+        j = 0;
+        i++;
+    }
 }
 
 // plot pixel (x, y) to the screen
+void addPixelToBuffer(int x, int y, double z, Uint32 pixel) {
+    if(x < 0 || image_width - 1 < x || y < 0 || image_height - 1 < y)
+        return;
+
+    if(zbuffer[x][y]->z < z && zbuffer[x][y]->z < eye.z) {
+        zbuffer[x][y]->z = z;
+        zbuffer[x][y]->color = pixel;
+    }
+}
 void drawPixel(int x, int y, Uint32 pixel) {
 
     // check bounds
@@ -70,6 +95,18 @@ void drawPixel(int x, int y, Uint32 pixel) {
 
 // render screen, after new pixels have been plotted
 void renderScreen(){
+    int i, j;
+    i = j = 0;
+    printf("DEBUG Line : 99 File : ../screen.c\n");
+    while(i < width) {
+        while(j < height) {
+            drawPixel(i, j, zbuffer[i][j]->color);
+            j++;
+        }
+        j = 0;
+        i++;
+    }
+    printf("DEBUG Line : 108 File : ../screen.c\n");
     SDL_Flip(screen);
 }
 

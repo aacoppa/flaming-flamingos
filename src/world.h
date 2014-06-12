@@ -16,7 +16,7 @@ void update_objects();
 
 //Called in update objects
 void update_velocities();
-void update_positions():
+void update_positions();
 
 struct point eye;
     /* First update positions and check for collisions

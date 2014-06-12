@@ -14,22 +14,32 @@ int main(int argc, char ** argv) {
 
 }
 **/
-void draw_line_d(double x1, double y1, double x2, double y2, Uint32 col) {
+
+double maximum(double a, double b) {
+    if(a < b) return b;
+    return a;
+}
+void draw_line_d(double x1, double y1, double z1, 
+                 double x2, double y2, double z2, Uint32 col) {
     int X1 = x1;
     int Y1 = y1;
+    int Z1 = z1;
     int X2 = x2;
     int Y2 = y2;
+    int Z2 = z2;
     //printf("F: x1 x2 y1 y2 %f %f %f %f \n", x1, x2, y1, y2);
-    draw_line(X1, Y1, X2, Y2, col);
+    draw_line(X1, Y1, Z1, X2, Y2, Z2, col);
 }
-void draw_line(int x1, int y1, int x2, int y2, Uint32 color) {
+void draw_line(int x1, int y1, int z1,
+               int x2, int y2, int z2, Uint32 color) {
     int xdiff = x1 - x2;
     int ydiff = y1 - y2;
 
     if( !xdiff && !ydiff ) {
         //Given only one point
         //color_pixel(x1, y1, cols);
-        drawPixel(x1, y1, *(Uint32*)&color);
+        
+        addPixelToBuffer(x1, y1, maximum(z1, z2), *(Uint32*)&color);
         return;
     }
     //Pick major direction
@@ -48,7 +58,8 @@ void draw_line(int x1, int y1, int x2, int y2, Uint32 color) {
     //printf("x1 x2 y1 y2 dirr%d %d %d %d %d\n", x1, x2, y1, y2, (major == XMAJOR));
     while( (major == XMAJOR) ? x1 <= x2 : y1 <= y2 ) {
 
-        drawPixel(x1, y1, *(Uint32*)&color);
+        double z = maximum(z1, z2);
+        addPixelToBuffer(x1, y1, z, *(Uint32*)&color);
         acc += abs(min);
         if(acc >= max) {
             acc = acc % max;

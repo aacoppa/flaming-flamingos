@@ -1,16 +1,13 @@
+UPDATE
+======
+
+In world.c there are two functions:
+    colliding and update_collision
+They need to be filled in. The context they are used in is self-explanatory.
+
 June 5th
-* Remake the makefile
 * Create interface
-    - object struct
+    DONE - object struct
         * Different types of collision based on object id
-    - plane object
+    TODO - plane object (If we can... Used for boundaries)
         * type of object
-    - world.c
-        * list of objects
-            - including boundaries
-        * generic update objects
-        * draw object function
-    - collide function
-    - generic move function
-        * update matrix of each object
-        * local transformation matrix

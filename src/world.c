@@ -1,7 +1,4 @@
 #include "world.h"
-void init_world() {
-
-}
 
 void go() {
     update_objects();
@@ -44,6 +41,7 @@ void update_velocities(object * obj) {
 void update_positions() {
     int i = 0;
     while(i < num_objects) {
+        if(objects[i].movable) {
         objects[i].x = objects[i].x + objects[i].vx;
         objects[i].y = objects[i].y + objects[i].vy;
         objects[i].z = objects[i].z + objects[i].vz;
@@ -57,5 +55,6 @@ void update_positions() {
         ts[2] = objects[i].z;
         matrix t = translation_matrix(ts);
         multiply_matrix_onto_self(t, objects[i]->mat);
+        }
     }
 }

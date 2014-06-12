@@ -29,6 +29,7 @@
 typedef struct object {
     int id;
     int object_number;
+    int movable;
     double x, y, z; //current x, y, z
     matrix * mat; //current position matrix
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys

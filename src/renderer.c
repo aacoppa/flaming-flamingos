@@ -17,7 +17,7 @@ void init_screen(double SXL, double SYL, double SXR, double SYR, int w, int h) {
  */
 void draw_to_screen(double ex, double ey, double ez, matrix * to_render, Uint32 color) {
     clearScreen();
-    convert_to_eye_coordinates(ex, ey, ez, to_render);
+    convert_to_eye_coordinates(ex, ey, ez, &to_render);
     struct point eye;
     eye.x = ex;
     eye.y = ey;
@@ -46,8 +46,8 @@ void add_triangle_to_render( double x1, double y1, double z1,
     to_render->mat[to_render->width - 1][3] = 1;
 }
 
-void convert_to_eye_coordinates( double ex, double ey, double ez, matrix * to_render) {
-    
+void convert_to_eye_coordinates( double ex, double ey, double ez, matrix ** to_render_orig) {
+    matrix * to_render = *to_render_orig;
     int i, curr_column;
     matrix * temp = malloc(sizeof(matrix));
     *temp = init_matrix(to_render->width, 4);
@@ -56,12 +56,12 @@ void convert_to_eye_coordinates( double ex, double ey, double ez, matrix * to_re
         
         to_render->mat[i][0] = (-ez / (to_render->mat[i][2] - ez) ) * ( to_render->mat[i][0] - ex) + ex;
         to_render->mat[i][1] = (-ez / (to_render->mat[i][2] - ez) ) * ( to_render->mat[i][1] - ey) + ey;
-        temp->mat[curr_column][0] = (width)  * (to_render->mat[i][0] - sxl) / (sxr - sxl);
-        temp->mat[curr_column][1] = height - ( (height) * (to_render->mat[i][1] - syl) / (syr - syl) );
+        temp->mat[i][0] = (width)  * (to_render->mat[i][0] - sxl) / (sxr - sxl);
+        temp->mat[i][1] = height - ( (height) * (to_render->mat[i][1] - syl) / (syr - syl) );
         curr_column++;
     }
     delete_matrix(*to_render);
-    to_render = temp;
+    *to_render_orig = temp;
 }
 
 void convert_from_screen(matrix * to_render) {
@@ -97,6 +97,8 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
             continue;
         }
         //Draw the three lines
+        //
+
         draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
                 to_render->mat[startX - 1][0], to_render->mat[startX - 1][1], *(Uint32 *)&color);
         draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
@@ -106,15 +108,17 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */
-        matrix * m = fill_triangle( p1, p2, p3);
+        //matrix * m = fill_triangle( p1, p2, p3);
         int p = 0;
         /* Then just loop through the matrix drawing a line for every two
          * columns (one column represents one endpoint)
          */
+        /*
         while(p < m->width) {
             draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p+1][0], m->mat[p+1][1], *(Uint32 *)&color);
             p += 2;
         }
+        */
         //End of filling
         startX += 3;
     }

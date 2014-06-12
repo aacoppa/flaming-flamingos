@@ -19,6 +19,7 @@ void draw_line_d(double x1, double y1, double x2, double y2, Uint32 col) {
     int Y1 = y1;
     int X2 = x2;
     int Y2 = y2;
+    //printf("F: x1 x2 y1 y2 %f %f %f %f \n", x1, x2, y1, y2);
     draw_line(X1, Y1, X2, Y2, col);
 }
 void draw_line(int x1, int y1, int x2, int y2, Uint32 color) {
@@ -59,3 +60,7 @@ void draw_line(int x1, int y1, int x2, int y2, Uint32 color) {
 
     }
 }
+/*
+void color_pixel(int x, int y) {
+    printf("Coloring pixel (x, y) : %d %d\n", x, y);
+}*/

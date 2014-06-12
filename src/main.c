@@ -3,16 +3,16 @@
 #include <string.h>
 #include <math.h>
 #include "renderer.h"
-#include "shapes/sphere.h"
 #include "shapes/box.h"
-#include "shapes/point.h"
-#include "matrix/matrix.h"
-#include "matrix/vector.h"
-
+#include "shapes/sphere.h"
 matrix * m;
 int render_test();
 int main(int argc, char ** argv) {
-    return render_test();
+    //m = import_object("teapot.3dt");
+    if(argc < 2) {
+        return render_test();
+    } 
+    return 0;
 }
 
 int render_test() {
@@ -44,8 +44,9 @@ int render_test() {
     s[1] =.4;
     s[2] =.4;
     multiply_matrix_onto_self(scale_matrix(s), &transformer);
-    matrix to_render = multiply_matrix(transformer, edge);
-    draw_to_screen(eye.x, eye.y, eye.z, &to_render, *(Uint32 *)&s);
+    matrix * to_render = malloc(sizeof(matrix));
+    *to_render = multiply_matrix(transformer, edge);
+    draw_to_screen(eye.x, eye.y, eye.z, to_render, *(Uint32 *)&s);
     SDL_Delay(100);
 
     //printf("y: %f\n", eye.y);

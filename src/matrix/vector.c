@@ -1,4 +1,5 @@
 #include "vector.h"
+#include <math.h>
 vector init_vector(double x, double y, double z) {
     vector v;
     v.x = x;
@@ -33,6 +34,11 @@ double get_direction(struct point p1, struct point p2, struct point p3, struct p
     double d = dot_product(to_eye, normal);
     return d;
 }
+
+double magnitude(vector v) {
+    return sqrt( pow(abs(v.x), 2) + pow(abs(v.y), 2) + pow(abs(v.z), 2) );
+}
+
 void print_vector(vector v1) {
     printf("Vector (%f, %f, %f)\n", v1.x, v1.y, v1.z);
 }

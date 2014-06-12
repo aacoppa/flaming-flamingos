@@ -31,7 +31,7 @@ void update_velocities(object * obj) {
     while(i < num_objects) {
         if(obj->object_number != objects[i]->object_number) {
             if(colliding(obj, objects[i])) {
-                avoid_collision(obj, objects[i]);
+                collision(obj, objects[i]);
             }
         } 
         i++;

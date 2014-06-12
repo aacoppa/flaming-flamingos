@@ -11,3 +11,16 @@ June 5th
         * Different types of collision based on object id
     TODO - plane object (If we can... Used for boundaries)
         * type of object
+<<<<<<< Updated upstream
+=======
+    - world.c
+        * list of objects
+            - including boundaries
+        * generic update objects
+        * draw object function
+    - collide function
+    - generic move function
+        * update matrix of each object
+        * local transformation matrix
+    - gravity function
+>>>>>>> Stashed changes

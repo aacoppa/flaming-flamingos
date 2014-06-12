@@ -13,6 +13,7 @@ vector init_vector(double, double, double);
 double get_direction(struct point, struct point, struct point, struct point);
 vector get_vector(struct point, struct point);
 double dot_product(vector, vector);
+double magnitude(vector);
 vector cross_product(vector, vector);
 void print_vector(vector);
 #endif

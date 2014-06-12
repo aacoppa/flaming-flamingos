@@ -18,19 +18,19 @@ int main(int argc, char ** argv) {
     */
     //fill_test();
     struct point p1;
-    p1.x = 1;
-    p1.y = 1;
+    p1.x = 0;
+    p1.y = 0;
     p1.z = 0;
 
     struct point p2;
-    p2.x = -1;
-    p2.y = -1;
-    p2.z = 0;
+    p2.x = -.5;
+    p2.y = -.5;
+    p2.z = -1;
 
     struct point p3;
-    p3.x = 1;
-    p3.y = -1;
-    p3.z = 0;
+    p3.x = .5;
+    p3.y = 0;
+    p3.z = -1;
 
     SDL_Color s;
     s.r = 0;
@@ -42,12 +42,10 @@ int main(int argc, char ** argv) {
     matrix * m = malloc(sizeof(matrix));
 
     *m = init_matrix(4, 4);
-    /*add_triangle_to_render(p1.x, p1.y, p1.z,
+    add_triangle_to_render(p1.x, p1.y, p1.z,
             p2.x, p2.y, p2.z,
             p3.x, p3.y, p3.z,
             m);
-            */
-    draw_sphere(-1, 0, 0, 1, m);
     int i = 0;
     while(i < 300) {
         printf("%d.1\n", i);

@@ -28,8 +28,9 @@
  */
 typedef struct object {
     int id;
+    int object_number;
     double x, y, z; //current x, y, z
-    matrix * current; //current position matrix
+    matrix * mat; //current position matrix
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
 };
 

@@ -1,15 +1,14 @@
-#include "matrix/matrix.h"
-#include "matrix/transformations.h"
-#include "shapes/sphere.h"
 #include "world.h"
-#include <stdlib.h>
 
 void init_world() {
-    num_objects = 0;
-    objects = malloc(sizeof(object));
+    init_screen(-2, -2, 2, 2, 500, 500);
+    num_objects = 2;
+    objects = malloc(sizeof(object) * num_objects);
     eye.x = 0;
-    eye.y = 5;
-    eye.z = 10;
+    eye.y = 0;
+    eye.z = -5;
+    objects[0] = init_sphere(-1, 0, 0, .1, 0, 0);
+    objects[1] = init_sphere(1, 0, 0, -.1, 0, 0);
 }
 
 void go() {
@@ -74,6 +73,7 @@ void update_positions() {
     }
 }
 
+/*
 void add_object() {
     num_objects += 1;
     int index = num_objects - 1;
@@ -105,3 +105,4 @@ void add_object() {
     objects[index]->mat = malloc(sizeof(matrix));
     *(objects[index]->mat) = mat;
 }
+*/

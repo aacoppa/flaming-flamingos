@@ -1,3 +1,8 @@
+#ifndef PHYSICS_4AJ7MSKO
+
+#define PHYSICS_4AJ7MSKO
+
+
 #include "screen.h"
 #include "matrix/vector.h"
 #include "world.h"
@@ -76,3 +81,4 @@ void collision(object *ball0, object *ball1) {
  **/
 void gravitate(object *obj) {
 }
+#endif /* end of include guard: PHYSICS_4AJ7MSKO */

@@ -102,8 +102,8 @@ void drawPixel(int x, int y, Uint32 pixel) {
 void renderScreen(){
     int i, j;
     i = j = 0;
-    while(i < width) {
-        while(j < height) {
+    while(i < image_width) {
+        while(j < image_height) {
             drawPixel(i, j, zbuffer[i][j]->color);
             j++;
         }

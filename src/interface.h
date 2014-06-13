@@ -25,6 +25,7 @@
 #include <string.h>
 #include "renderer.h"
 #include "matrix/matrix.h"
+#include "shapes/sphere.h"
 
 #define SPHERE_ID   1
 #define RECT_ID     2
@@ -33,9 +34,10 @@
  * the different things that will be
  * bouncing around
  */
-typedef struct object {
+
+typedef struct {
     int id;
-    int object_number;
+    //int object_number;
     int movable;
     double r;
     double x, y, z; //current x, y, z
@@ -43,6 +45,8 @@ typedef struct object {
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
 } object;
 
+object * init_sphere(double, double, double,
+                     double, double, double);
 
 
 #endif /* end of include guard: INTERFACE_HQ0DKX03 */

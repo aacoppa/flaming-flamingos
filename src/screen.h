@@ -1,8 +1,7 @@
 #pragma once
 #include <SDL/SDL.h>
 #include <float.h>
-#include "world.h"
-
+#include "eye.h"
 void configureScreen();
 void drawPixel(int x, int y, Uint32 pixel);
 void addPixelToBuffer(int x, int y, double z, Uint32 pixel);

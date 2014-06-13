@@ -54,9 +54,34 @@ void configureScreen(int w, int h){
 
     screen = SDL_SetVideoMode(image_width, image_height, 32, SDL_SWSURFACE);
     SDL_WM_SetCaption(SCREEN_NAME, NULL);
+
+    int i, j;
+    i = j = 0;
+    zbuffer = malloc(sizeof(zbuff **) * image_width);
+    while(i < image_width) {
+        zbuffer[i] = malloc(sizeof(zbuff) *
+                image_height);
+        while(j < image_height) {
+            zbuffer[i][j] = malloc(sizeof(zbuff));
+            zbuffer[i][j]->color = SDL_MapRGB(screen->format, 0, 0, 0);
+            zbuffer[i][j]->z = -1000000;
+            j++;
+        }
+        j = 0;
+        i++;
+    }
 }
 
 // plot pixel (x, y) to the screen
+void addPixelToBuffer(int x, int y, double z, Uint32 pixel) {
+    if(x < 0 || image_width - 1 < x || y < 0 || image_height - 1 < y)
+        return;
+
+    if(zbuffer[x][y]->z < z && zbuffer[x][y]->z < eye.z) {
+        zbuffer[x][y]->z = z;
+        zbuffer[x][y]->color = pixel;
+    }
+}
 void drawPixel(int x, int y, Uint32 pixel) {
 
     // check bounds
@@ -70,12 +95,34 @@ void drawPixel(int x, int y, Uint32 pixel) {
 
 // render screen, after new pixels have been plotted
 void renderScreen(){
+    int i, j;
+    i = j = 0;
+    while(i < width) {
+        while(j < height) {
+            drawPixel(i, j, zbuffer[i][j]->color);
+            j++;
+        }
+        j = 0;
+        i++;
+    }
     SDL_Flip(screen);
 }
 
 // clear the screen by filling it with black pixels
 void clearScreen(){
     SDL_FillRect(screen, NULL, 0x000000);
+
+    int i, j;
+    i = j = 0;
+    while(i < image_width) {
+        while(j < image_height) {
+            zbuffer[i][j]->color = SDL_MapRGB(screen->format, 0, 0, 0);
+            zbuffer[i][j]->z = -1000000;
+            j++;
+        }
+        j = 0;
+        i++;
+    }
 }
 
 // close the screen and perform memory cleanup

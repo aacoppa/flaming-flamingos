@@ -21,7 +21,9 @@ sphere.o:
 	gcc -c sphere.c
 
 clean:
-	rm *.o
+	-rm *.o
+	-rm a.out
 run:
+	make clean
 	make
 	./a.out

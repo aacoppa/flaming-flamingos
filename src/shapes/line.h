@@ -21,9 +21,10 @@
 //Integers only please
 #define swap(x,y) { x = x + y; y = x - y; x = x - y; }
 
-void draw_line_d(double, double, double, double, Uint32);
-void draw_line(int, int, int, int, Uint32); 
+void draw_line_d(double, double, double, double, double, double, Uint32);
+void draw_line(int, int, int, int, int, int, Uint32); 
 void draw_line_file_d(double, double, double, double, Uint32);
 void draw_line_file(int, int, int, int, Uint32); 
+double maximum(double, double);
 
 #endif

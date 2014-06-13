@@ -19,6 +19,12 @@
 
 #define INTERFACE_HQ0DKX03
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "renderer.h"
+#include "matrix/matrix.h"
+
 #define SPHERE_ID   1
 #define RECT_ID     2
 
@@ -33,12 +39,9 @@ typedef struct object {
     double x, y, z; //current x, y, z
     matrix * mat; //current position matrix
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
-};
+} object;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "renderer.h"
+
 
 
 #endif /* end of include guard: INTERFACE_HQ0DKX03 */

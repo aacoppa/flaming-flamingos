@@ -100,25 +100,31 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
         //
 
         draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-                to_render->mat[startX - 1][0], to_render->mat[startX - 1][1], *(Uint32 *)&color);
+                to_render->mat[startX - 2][2], to_render->mat[startX - 1][0], 
+                to_render->mat[startX - 1][1], to_render->mat[startX - 1][2],
+                *(Uint32 *)&color);
         draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-                to_render->mat[startX][0], to_render->mat[startX][1], *(Uint32 *)&color);
-        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX-1][1],
-                to_render->mat[startX][0], to_render->mat[startX][1], *(Uint32 *)&color);
+                to_render->mat[startX - 2][2], to_render->mat[startX][0], 
+                to_render->mat[startX][1], to_render->mat[startX][2],
+                *(Uint32 *)&color);
+        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX - 1][1],
+                to_render->mat[startX - 1][2], to_render->mat[startX][0], 
+                to_render->mat[startX][1], to_render->mat[startX][2],
+                *(Uint32 *)&color);
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */
-        //matrix * m = fill_triangle( p1, p2, p3);
+        matrix * m = fill_triangle( p1, p2, p3);
         int p = 0;
         /* Then just loop through the matrix drawing a line for every two
          * columns (one column represents one endpoint)
          */
-        /*
         while(p < m->width) {
-            draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p+1][0], m->mat[p+1][1], *(Uint32 *)&color);
+            draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p][2],
+                        m->mat[p+1][0], m->mat[p+1][1], m->mat[p+1][2],
+                        *(Uint32 *)&color);
             p += 2;
         }
-        */
         //End of filling
         startX += 3;
     }

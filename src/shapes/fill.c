@@ -27,7 +27,7 @@ int fill_test()
     draw_top(p1, p2, p3, m);
     return 0;
 }
-void add_line(int x1, int y1, int x2, int y2, matrix * m) {
+void add_line(int x1, int y1, int x2, int y2, double z, matrix * m) {
 
     matrix p = add_columns(*m, 2);
     *m = p;
@@ -47,11 +47,11 @@ void add_line_p(struct point p1, struct point p2, matrix * m) {
     *m = add_columns(*m, 2);
     m->mat[m->width-2][0] = p1.x;
     m->mat[m->width-2][1] = p1.y;
-    m->mat[m->width-2][2] = 0;
+    m->mat[m->width-2][2] = p1.z;
     m->mat[m->width-2][3] = 1;
     m->mat[m->width-1][0] = p2.x;
     m->mat[m->width-1][1] = p2.y;
-    m->mat[m->width-1][2] = 0;
+    m->mat[m->width-1][2] = p2.z;
     m->mat[m->width-1][3] = 1;
 }
 
@@ -61,6 +61,22 @@ int special_case(struct point p1, struct point p2,
     /* Checks if we're given not a triangle;
      * handles the cases that come up if thats the case
      */
+    if(p1.y == p2.y &&
+       p1.x == p2.x) {
+        add_line_p(p1, p3, lines);
+        return 0;
+    }
+    if(p1.y == p3.y &&
+       p1.x == p3.x) {
+        add_line_p(p2, p3, lines);
+        return 0;
+    }
+    
+    if(p3.y == p2.y &&
+       p3.x == p2.x) {
+        add_line_p(p1, p3, lines);
+        return 0;
+    }
     if(p1.y == p2.y && p2.y == p3.y) {
         add_line_p(p1, p3, lines);
         add_line_p(p2, p3, lines);
@@ -132,9 +148,14 @@ matrix * fill_triangle(struct point pa, struct point pb, struct point pc) {
 }
 
 void draw_top(struct point p1, struct point p2, struct point p3, matrix * lines) {
+    double z = p1.z;
+    if(p2.z > z) z = p2.z;
+    if(p3.z > z) z = p3.z;
+
     int y_curr = p1.y-1;
     struct point pr = (p2.x > p3.x) ? p2 : p3;
     struct point pl = (p2.x <= p3.x) ? p2 : p3;
+
     int x_diff_r = abs(p1.x - pr.x);
     int y_diff_r = abs(p1.y - pr.y);
     int inc_r = (p1.x > pr.x) ? -1 : 1;
@@ -149,22 +170,27 @@ void draw_top(struct point p1, struct point p2, struct point p3, matrix * lines)
     int acc_l = 0;
     while(y_curr >= p2.y) {
         acc_r += x_diff_r;
-        while(acc_r >= y_diff_r) {
+        while(acc_r >= y_diff_r && y_diff_r != 0) {
             acc_r -= y_diff_r;
             x_r += inc_r;
         }
         acc_l += x_diff_l;
-        while(acc_l >= y_diff_l) {
+        while(acc_l >= y_diff_l && y_diff_l != 0) {
             acc_l -= y_diff_l;
             x_l += inc_l;
         }
         //printf("x1, x2, y, %d, %d, %d\n", x_l, x_r, y_curr);
-        add_line(x_l, y_curr, x_r, y_curr, lines);
+        add_line(x_l, y_curr, x_r, y_curr, z, lines);
         y_curr--;
     }
 }
 
 void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lines) {
+
+    double z = p1.z;
+    if(p2.z > z) z = p2.z;
+    if(p3.z > z) z = p3.z;
+
     int y_curr = p1.y+1;
     struct point pr = (p2.x > p3.x) ? p2 : p3;
     struct point pl = (p2.x <= p3.x) ? p2 : p3;
@@ -181,16 +207,16 @@ void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lin
     int acc_l = 0;
     while(y_curr <= p2.y) {
         acc_r += x_diff_r;
-        while(acc_r >= y_diff_r) {
+        while(acc_r >= y_diff_r && y_diff_r != 0) {
             acc_r -= y_diff_r;
             x_r += inc_r;
         }
         acc_l += x_diff_l;
-        while(acc_l >= y_diff_l) {
+        while(acc_l >= y_diff_l && y_diff_l != 0) {
             acc_l -= y_diff_l;
             x_l += inc_l;
         }
-        add_line(x_l, y_curr, x_r, y_curr, lines);
+        add_line(x_l, y_curr, x_r, y_curr, z, lines);
         y_curr++;
     }
 }

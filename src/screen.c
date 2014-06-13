@@ -97,7 +97,6 @@ void drawPixel(int x, int y, Uint32 pixel) {
 void renderScreen(){
     int i, j;
     i = j = 0;
-    printf("DEBUG Line : 99 File : ../screen.c\n");
     while(i < width) {
         while(j < height) {
             drawPixel(i, j, zbuffer[i][j]->color);
@@ -106,7 +105,6 @@ void renderScreen(){
         j = 0;
         i++;
     }
-    printf("DEBUG Line : 108 File : ../screen.c\n");
     SDL_Flip(screen);
 }
 

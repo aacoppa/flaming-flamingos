@@ -61,6 +61,22 @@ int special_case(struct point p1, struct point p2,
     /* Checks if we're given not a triangle;
      * handles the cases that come up if thats the case
      */
+    if(p1.y == p2.y &&
+       p1.x == p2.x) {
+        add_line_p(p1, p3, lines);
+        return 0;
+    }
+    if(p1.y == p3.y &&
+       p1.x == p3.x) {
+        add_line_p(p2, p3, lines);
+        return 0;
+    }
+    
+    if(p3.y == p2.y &&
+       p3.x == p2.x) {
+        add_line_p(p1, p3, lines);
+        return 0;
+    }
     if(p1.y == p2.y && p2.y == p3.y) {
         add_line_p(p1, p3, lines);
         add_line_p(p2, p3, lines);
@@ -154,12 +170,12 @@ void draw_top(struct point p1, struct point p2, struct point p3, matrix * lines)
     int acc_l = 0;
     while(y_curr >= p2.y) {
         acc_r += x_diff_r;
-        while(acc_r >= y_diff_r) {
+        while(acc_r >= y_diff_r && y_diff_r != 0) {
             acc_r -= y_diff_r;
             x_r += inc_r;
         }
         acc_l += x_diff_l;
-        while(acc_l >= y_diff_l) {
+        while(acc_l >= y_diff_l && y_diff_l != 0) {
             acc_l -= y_diff_l;
             x_l += inc_l;
         }
@@ -191,12 +207,12 @@ void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lin
     int acc_l = 0;
     while(y_curr <= p2.y) {
         acc_r += x_diff_r;
-        while(acc_r >= y_diff_r) {
+        while(acc_r >= y_diff_r && y_diff_r != 0) {
             acc_r -= y_diff_r;
             x_r += inc_r;
         }
         acc_l += x_diff_l;
-        while(acc_l >= y_diff_l) {
+        while(acc_l >= y_diff_l && y_diff_l != 0) {
             acc_l -= y_diff_l;
             x_l += inc_l;
         }

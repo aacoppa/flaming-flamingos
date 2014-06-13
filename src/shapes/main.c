@@ -50,11 +50,9 @@ int main(int argc, char ** argv) {
     draw_sphere(-1, 0, 0, 1, m);
     int i = 0;
     while(i < 300) {
-        printf("%d.1\n", i);
+        printf("%d / 300\n", i);
         matrix to_render = multiply_matrix(transformer, *m);
-        printf("%d.2\n", i);
         draw_to_screen(0, 0, -5, &to_render, *(Uint32 *)&s);
-        printf("%d.3\n", i);
         i++;
         SDL_Delay(20);
     }

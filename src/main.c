@@ -36,6 +36,7 @@ int render_test() {
 
         total_frames++;
         i++;
+        printf("hello\n");
     }
     gettimeofday(&end, NULL);
     secs  = end.tv_sec  - start.tv_sec;

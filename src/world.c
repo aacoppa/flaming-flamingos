@@ -3,17 +3,21 @@
 void init_world() {
     init_screen(-2, -2, 2, 2, 500, 500);
     num_objects = 2;
-    objects = malloc(sizeof(object) * num_objects);
+    objects = malloc(sizeof(object *) * num_objects);
     eye.x = 0;
     eye.y = 0;
     eye.z = -5;
     objects[0] = init_sphere(-1, 0, 0, .1, 0, 0);
+    objects[1] = malloc(sizeof(object));
     objects[1] = init_sphere(1, 0, 0, -.1, 0, 0);
 }
 
 void go() {
+    printf("DEBUG Line : 15 File : src/world.c\n");
     display_objects();
+    printf("DEBUG Line : 17 File : src/world.c\n");
     update_objects();
+    printf("DEBUG Line : 19 File : src/world.c\n");
 }
 
 void display_objects() {

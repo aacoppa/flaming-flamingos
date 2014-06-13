@@ -63,7 +63,7 @@ void configureScreen(int w, int h){
                 image_height);
         while(j < image_height) {
             zbuffer[i][j] = malloc(sizeof(zbuff));
-            zbuffer[i][j]->color = 0;
+            zbuffer[i][j]->color = SDL_MapRGB(screen->format, 0, 0, 0);
             zbuffer[i][j]->z = -1000000;
             j++;
         }
@@ -111,6 +111,18 @@ void renderScreen(){
 // clear the screen by filling it with black pixels
 void clearScreen(){
     SDL_FillRect(screen, NULL, 0x000000);
+
+    int i, j;
+    i = j = 0;
+    while(i < image_width) {
+        while(j < image_height) {
+            zbuffer[i][j]->color = SDL_MapRGB(screen->format, 0, 0, 0);
+            zbuffer[i][j]->z = -1000000;
+            j++;
+        }
+        j = 0;
+        i++;
+    }
 }
 
 // close the screen and perform memory cleanup

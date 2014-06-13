@@ -33,12 +33,12 @@ void collision(object *ball0, object *ball1) {
     //Calculate vector of object center line
     vector cline0, cline1, vel0, vel1;
     cline0.x = ball0->x - ball1->x;
-    cline0.y = ball0->x - ball1->y;
-    cline0.z = ball0->x - ball1->z;
+    cline0.y = ball0->y - ball1->y;
+    cline0.z = ball0->z - ball1->z;
 
     cline1.x = ball1->x - ball0->x;
-    cline1.y = ball1->x - ball0->y;
-    cline1.z = ball1->x - ball0->z;
+    cline1.y = ball1->y - ball0->y;
+    cline1.z = ball1->z - ball0->z;
 
     vel0.x = ball0->vx;
     vel0.y = ball0->vy;
@@ -67,13 +67,13 @@ void collision(object *ball0, object *ball1) {
     c1.z = ( cline1.z / cmag1 ) * m1;
 
     //Add collision vector to movement vector to get new vector
-    ball0->vx += c0.x;
-    ball0->vx += c0.y;
-    ball0->vx += c0.z;
+    ball0->vx += -c1.x + c0.x;
+    ball0->vy += -c1.y + c0.y;
+    ball0->vz += -c1.z + c0.z;
 
-    ball1->vx += c1.x;
-    ball1->vx += c1.y;
-    ball1->vx += c1.z;
+    ball1->vx += -c0.x + c1.x;
+    ball1->vy += -c0.y + c1.y;
+    ball1->vz += -c0.z + c1.z;
 }
 
 /**

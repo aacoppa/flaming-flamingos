@@ -39,6 +39,7 @@ void display_objects() {
 void update_objects() {
     update_velocities();
     update_positions();
+    printf("DEBUG Line : 41 File : src/world.c\n");
 }
 
 void update_velocities() {
@@ -46,14 +47,12 @@ void update_velocities() {
     for(i = 0; i < num_objects; i++) {
         object *obj = objects[i];
         for(j = 0; j < num_objects; j++) {
-            printf("%d %d\n", i, j);
-            printf("%lu %lu\n", obj, objects[1]);
-            if(obj == objects[j]) continue;
-            printf("DEBUG Line : 49 File : src/world.c\n");
-            if(colliding(obj, objects[j])) {
-                printf("DEBUG Line : 51 File : src/world.c\n");
-                collision(obj, objects[j]);
-                printf("DEBUG Line : 53 File : src/world.c\n");
+            if(obj != objects[j]) {
+                if(colliding(obj, objects[j])) {
+                    printf("DEBUG Line : 51 File : src/world.c\n");
+                    collision(obj, objects[j]);
+                    printf("DEBUG Line : 53 File : src/world.c\n");
+                }
             }
         }
     }
@@ -67,6 +66,7 @@ void update_positions() {
             objects[i]->y = objects[i]->y + objects[i]->vy;
             objects[i]->z = objects[i]->z + objects[i]->vz;
 
+            printf("DEBUG Line : 68 File : src/world.c\n");
             /* Transform the point matrix now
             *
             */
@@ -75,7 +75,10 @@ void update_positions() {
             ts[1] = objects[i]->y;
             ts[2] = objects[i]->z;
             matrix t = translation_matrix(ts);
+            printf("DEBUG Line : 76 File : src/world.c\n");
+            print_matrix(t);
             multiply_matrix_onto_self(t, objects[i]->mat);
+            printf("DEBUG Line : 78 File : src/world.c\n");
         }
     }
 }

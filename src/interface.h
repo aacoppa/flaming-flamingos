@@ -22,7 +22,7 @@
 
 typedef struct {
     int id;
-    //int object_number;
+    int object_number;
     int movable;
     double r;
     double x, y, z; //current x, y, z
@@ -49,7 +49,8 @@ typedef struct {
  */
 
 object * init_sphere(double, double, double,
-                     double, double, double);
+                     double, double, double,
+                     int);
 
 
 #endif /* end of include guard: INTERFACE_HQ0DKX03 */

@@ -7,17 +7,14 @@ void init_world() {
     eye.x = 0;
     eye.y = 0;
     eye.z = -5;
-    objects[0] = init_sphere(-1, 0, 0, .1, 0, 0);
+    objects[0] = init_sphere(-1, 0, 0, .1, 0, 0, 0);
     objects[1] = malloc(sizeof(object));
-    objects[1] = init_sphere(1, 0, 0, -.1, 0, 0);
+    objects[1] = init_sphere(1, 0, 0, -.1, 0, 0, 1);
 }
 
 void go() {
-    printf("DEBUG Line : 15 File : src/world.c\n");
     display_objects();
-    printf("DEBUG Line : 17 File : src/world.c\n");
     update_objects();
-    printf("DEBUG Line : 19 File : src/world.c\n");
 }
 
 void display_objects() {
@@ -48,9 +45,15 @@ void update_velocities() {
     int i, j;
     for(i = 0; i < num_objects; i++) {
         object *obj = objects[i];
-        for(j = i + 1; j < num_objects; j++) {
+        for(j = 0; j < num_objects; j++) {
+            printf("%d %d\n", i, j);
+            printf("%lu %lu\n", obj, objects[1]);
+            if(obj == objects[j]) continue;
+            printf("DEBUG Line : 49 File : src/world.c\n");
             if(colliding(obj, objects[j])) {
+                printf("DEBUG Line : 51 File : src/world.c\n");
                 collision(obj, objects[j]);
+                printf("DEBUG Line : 53 File : src/world.c\n");
             }
         }
     }

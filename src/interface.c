@@ -1,7 +1,8 @@
 #include "interface.h"
 
-object * init_sphere(double x, double y, double z, double vx, double vy, double vz) {
+object * init_sphere(double x, double y, double z, double vx, double vy, double vz, int on) {
     object * obj = malloc(sizeof(object));
+    obj->object_number = on;
     obj->id = SPHERE_ID;
     obj->x = x;
     obj->y = y;

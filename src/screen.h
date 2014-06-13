@@ -16,4 +16,9 @@ typedef struct zbuff {
     Uint32 color;
 } zbuff;
 
+Uint32 red;
+Uint32 blue;
+Uint32 green;
+Uint32 black;
+Uint32 white;
 zbuff *** zbuffer;

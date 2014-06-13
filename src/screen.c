@@ -70,6 +70,11 @@ void configureScreen(int w, int h){
         j = 0;
         i++;
     }
+    red = SDL_MapRGB(screen->format, 255, 0, 0);
+    green = SDL_MapRGB(screen->format, 0, 255, 0);
+    blue = SDL_MapRGB(screen->format, 0, 0, 255);
+    black = SDL_MapRGB(screen->format, 0, 0, 0);
+    white = SDL_MapRGB(screen->format, 255, 255, 255);
 }
 
 // plot pixel (x, y) to the screen

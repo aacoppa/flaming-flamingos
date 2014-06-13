@@ -27,10 +27,6 @@ int render_test() {
     eye.z = 10;
     //draw_box(1, 1, 1, 1, 0, 0, &edge);
     draw_sphere(-1, 0, 0, 1, &edge);
-    SDL_Color s;
-    s.r = 0;
-    s.g = 0;
-    s.b = 255;
     float total_frames = 0;
     gettimeofday(&start, NULL);
     while( i < 300 ) {
@@ -46,7 +42,7 @@ int render_test() {
     multiply_matrix_onto_self(scale_matrix(s), &transformer);
     matrix * to_render = malloc(sizeof(matrix));
     *to_render = multiply_matrix(transformer, edge);
-    draw_to_screen(eye.x, eye.y, eye.z, to_render, *(Uint32 *)&s);
+    draw_to_screen(eye.x, eye.y, eye.z, to_render, blue);
     SDL_Delay(100);
 
     //printf("y: %f\n", eye.y);

@@ -22,7 +22,7 @@
 #define SPHERE_ID   1
 #define RECT_ID     2
 
-/* Use an object struct to represent 
+/* Use an object struct to represent
  * the different things that will be
  * bouncing around
  */

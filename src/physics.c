@@ -7,7 +7,7 @@
  * Spherical collision function that bases collision on the radius of two
  * objects and the distance between their centers.
  **/
-int collides(object ball0, object ball1) {
+int colliding(object ball0, object ball1) {
     vector diff;
     diff.x = ball0.x - ball1.x;
     diff.y = ball0.x - ball1.y;

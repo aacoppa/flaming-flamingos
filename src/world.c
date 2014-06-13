@@ -4,6 +4,7 @@ void go() {
     update_objects();
     display_objects();
 }
+
 void display_objects() {
     matrix * to_render = malloc(sizeof(matrix));
     *to_render = init_identity(4);
@@ -14,27 +15,21 @@ void display_objects() {
     }
     draw_to_screen(eye.x, eye.y, eye.z, to_render);
 }
+
 void update_objects() {
-    int i = 0;
-    while(i < num_objects) {
-        update_velocities(objects[i]);
-        i++;
-    }
-    i = 0;
-    while(i < num_objects) {
-        update_positions(objects[i]);
-    }
+    update_velocities();
+    update_positions();
 }
 
-void update_velocities(object * obj) {
-    int i = 0;
-    while(i < num_objects) {
-        if(obj->object_number != objects[i]->object_number) {
-            if(colliding(obj, objects[i])) {
-                collision(obj, objects[i]);
+void update_velocities() {
+    int i, j;
+    for(i = 0; i < num_objects; i++) {
+        object *obj = objects[i];
+        for(j = i + 1; j < num_objects; j++) {
+            if(colliding(obj, objects[j])) {
+                collision(obj, objects[j]);
             }
-        } 
-        i++;
+        }
     }
 }
 

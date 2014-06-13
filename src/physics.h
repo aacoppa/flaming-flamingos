@@ -1,5 +1,5 @@
 #include "world.h"
 
-int collides(object, object);
+int colliding(object, object);
 void collision(object, object);
 void gravitate(object);

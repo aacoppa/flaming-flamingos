@@ -15,17 +15,21 @@ void init_world() {
 void go() {
     display_objects();
     update_objects();
+    SDL_Delay(500);
 }
 
 void display_objects() {
     matrix * to_render = malloc(sizeof(matrix));
     *to_render = init_identity(4);
     int i = 0;
-    printf("num_objects: %d\n", num_objects);
     while(i < num_objects) {
-        printf("i: %d\n", i);
-        printf("width: %d, height: %d\n", objects[i]->mat->width, objects[i]->mat->height);
-        combine_matrices(to_render, objects[i]->mat);
+        double ts[3];
+        ts[0] = objects[i]->x;
+        ts[1] = objects[i]->y;
+        ts[2] = objects[i]->z;
+        matrix t = translation_matrix(ts);
+        matrix to_render_temp = multiply_matrix(t, *(objects[i]->mat));
+        combine_matrices(to_render, &to_render_temp);
         i++;
     }
 
@@ -39,7 +43,6 @@ void display_objects() {
 void update_objects() {
     update_velocities();
     update_positions();
-    printf("DEBUG Line : 41 File : src/world.c\n");
 }
 
 void update_velocities() {
@@ -49,9 +52,8 @@ void update_velocities() {
         for(j = 0; j < num_objects; j++) {
             if(obj != objects[j]) {
                 if(colliding(obj, objects[j])) {
-                    printf("DEBUG Line : 51 File : src/world.c\n");
+                    printf("COLLIDING!!!\n");
                     collision(obj, objects[j]);
-                    printf("DEBUG Line : 53 File : src/world.c\n");
                 }
             }
         }
@@ -66,20 +68,12 @@ void update_positions() {
             objects[i]->y = objects[i]->y + objects[i]->vy;
             objects[i]->z = objects[i]->z + objects[i]->vz;
 
-            printf("DEBUG Line : 68 File : src/world.c\n");
             /* Transform the point matrix now
             *
             */
-            double ts[3];
-            ts[0] = objects[i]->x;
-            ts[1] = objects[i]->y;
-            ts[2] = objects[i]->z;
-            matrix t = translation_matrix(ts);
-            printf("DEBUG Line : 76 File : src/world.c\n");
-            print_matrix(t);
-            multiply_matrix_onto_self(t, objects[i]->mat);
-            printf("DEBUG Line : 78 File : src/world.c\n");
+
         }
+        i++;
     }
 }
 

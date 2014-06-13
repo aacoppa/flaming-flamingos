@@ -19,11 +19,16 @@
 
 #define INTERFACE_HQ0DKX03
 #include "matrix/matrix.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 
 typedef struct {
     int id;
     int object_number;
     int movable;
+    u_int32_t color;
     double r;
     double x, y, z; //current x, y, z
     matrix * mat; //current position matrix
@@ -31,9 +36,7 @@ typedef struct {
 } object;
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "renderer.h"
 #include "matrix/matrix.h"
 #include "shapes/sphere.h"

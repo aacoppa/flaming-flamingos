@@ -16,14 +16,12 @@ void init_screen(double SXL, double SYL, double SXR, double SYR, int w, int h) {
  * render matrix to_render to the eye given
  */
 void draw_to_screen(double ex, double ey, double ez, matrix * to_render, Uint32 color) {
-    clearScreen();
     convert_to_eye_coordinates(ex, ey, ez, &to_render);
     struct point eye;
     eye.x = ex;
     eye.y = ey;
     eye.z = ez;
     draw_triangles(to_render, eye, color);
-    renderScreen();
 }
 
 void add_triangle_to_render( double x1, double y1, double z1,

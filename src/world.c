@@ -10,6 +10,9 @@ void init_world() {
     objects[0] = init_sphere(-1, 0, 0, .1, 0, 0, 0);
     objects[1] = malloc(sizeof(object));
     objects[1] = init_sphere(1, 0, 0, -.1, 0, 0, 1);
+
+    objects[0]->color = blue;
+    objects[1]->color = green;
 }
 
 void go() {
@@ -19,8 +22,7 @@ void go() {
 }
 
 void display_objects() {
-    matrix * to_render = malloc(sizeof(matrix));
-    *to_render = init_identity(4);
+    clearScreen();
     int i = 0;
     while(i < num_objects) {
         double ts[3];
@@ -28,16 +30,12 @@ void display_objects() {
         ts[1] = objects[i]->y;
         ts[2] = objects[i]->z;
         matrix t = translation_matrix(ts);
-        matrix to_render_temp = multiply_matrix(t, *(objects[i]->mat));
-        combine_matrices(to_render, &to_render_temp);
+        matrix to_render = multiply_matrix(t, *(objects[i]->mat));
+        draw_to_screen(eye.x, eye.y, eye.z, &to_render, objects[i]->color);
         i++;
     }
 
-    SDL_Color s;
-    s.r = 0;
-    s.g = 0;
-    s.b = 255;
-    draw_to_screen(eye.x, eye.y, eye.z, to_render, *(Uint32 *)&s);
+    renderScreen();
 }
 
 void update_objects() {

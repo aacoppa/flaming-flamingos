@@ -73,7 +73,7 @@ void convert_from_screen(matrix * to_render) {
 }
 
 void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
-    int startX = 6; //Start at 6 because our matrix begins with 4 
+    int startX = 6; //Start at 6 because our matrix begins with 4
                     //Empty slots
     struct point p1, p2, p3;
     /* Loop through the matrix, going through each triangle

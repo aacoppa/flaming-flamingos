@@ -18,6 +18,7 @@
 #ifndef INTERFACE_HQ0DKX03
 
 #define INTERFACE_HQ0DKX03
+#include "matrix/matrix.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,11 +37,11 @@ typedef struct object {
     int id;
     int object_number;
     int movable;
+    double r;
     double x, y, z; //current x, y, z
     matrix * mat; //current position matrix
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
 } object;
-
 
 
 

@@ -24,6 +24,6 @@ object * init_sphere(double x, double y, double z, double vx, double vy, double 
     obj->should_fill = 0;
     obj->mat = malloc(sizeof(matrix));
     *(obj->mat) = init_identity(4);
-    draw_sphere(0, 0, 0, obj->r, obj->mat);
+    draw_sphere(0, 0, 0, 1, obj->mat);
     return obj;
 }

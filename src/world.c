@@ -10,7 +10,7 @@ void init_world() {
     objects[0] = init_sphere(-1, 0.3, 0, .02, -0.01, 0, 0);
     objects[1] = malloc(sizeof(object));
     objects[1] = init_sphere(1, -0.5, 0, -.02, .02, 0, 1);
-
+    objects[1]->r = .2;
     objects[0]->color = blue;
     objects[1]->color = green;
 }
@@ -36,7 +36,13 @@ void display_objects() {
                                  &transformer);
         multiply_matrix_onto_self(translation_matrix(ts),
                                  &transformer);
+        double rs[3];
+        rs[0] = objects[i]->r;
+        rs[1] = rs[0];
+        rs[2] = rs[0];
+        multiply_matrix_onto_self(scale_matrix(rs), &transformer);
         matrix to_render = multiply_matrix(transformer, *(objects[i]->mat));
+
 
         draw_to_screen(eye.x, eye.y, eye.z, &to_render, 
                 objects[i]->color, objects[i]->should_fill);

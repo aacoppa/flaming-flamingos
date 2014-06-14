@@ -10,6 +10,15 @@ object * init_sphere(double x, double y, double z, double vx, double vy, double 
     obj->vx = vx;
     obj->vy = vy;
     obj->vz = vz;
+
+    obj->rx = .01;
+    obj->ry = .01;
+    obj->rz = 0;
+
+    obj->theta_x = 0;
+    obj->theta_y = 0;
+    obj->theta_z = 0;
+
     obj->r = .5;
     obj->movable = 1;
     obj->should_fill = 0;

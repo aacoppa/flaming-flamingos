@@ -32,6 +32,7 @@ typedef struct {
     u_int32_t color;
     double r;
     double x, y, z; //current x, y, z
+    double theta_x, theta_y, theta_z; //current rotations
     matrix * mat; //current position matrix
     double vx, vy, vz, rx, ry, rz; //angular and regular velocitys
 } object;

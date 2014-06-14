@@ -28,8 +28,16 @@ void display_objects() {
         ts[0] = objects[i]->x;
         ts[1] = objects[i]->y;
         ts[2] = objects[i]->z;
-        matrix t = translation_matrix(ts);
-        matrix to_render = multiply_matrix(t, *(objects[i]->mat));
+
+        matrix transformer = rotation_matrix_x(objects[i]->theta_x);
+        multiply_matrix_onto_self(rotation_matrix_y(objects[i]->theta_y),
+                                 &transformer);
+        multiply_matrix_onto_self(rotation_matrix_z(objects[i]->theta_z),
+                                 &transformer);
+        multiply_matrix_onto_self(translation_matrix(ts),
+                                 &transformer);
+        matrix to_render = multiply_matrix(transformer, *(objects[i]->mat));
+
         draw_to_screen(eye.x, eye.y, eye.z, &to_render, 
                 objects[i]->color, objects[i]->should_fill);
         i++;
@@ -62,6 +70,10 @@ void update_positions() {
             objects[i]->x = objects[i]->x + objects[i]->vx;
             objects[i]->y = objects[i]->y + objects[i]->vy;
             objects[i]->z = objects[i]->z + objects[i]->vz;
+
+            objects[i]->theta_x += objects[i]->rx;
+            objects[i]->theta_y += objects[i]->ry;
+            objects[i]->theta_z += objects[i]->rz;
 
             /* Transform the point matrix now
             *

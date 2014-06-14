@@ -12,6 +12,7 @@ object * init_sphere(double x, double y, double z, double vx, double vy, double 
     obj->vz = vz;
     obj->r = .5;
     obj->movable = 1;
+    obj->should_fill = 0;
     obj->mat = malloc(sizeof(matrix));
     *(obj->mat) = init_identity(4);
     draw_sphere(0, 0, 0, obj->r, obj->mat);

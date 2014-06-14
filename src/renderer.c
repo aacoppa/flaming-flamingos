@@ -15,13 +15,13 @@ void init_screen(double SXL, double SYL, double SXR, double SYR, int w, int h) {
 /* Start the drawing process:
  * render matrix to_render to the eye given
  */
-void draw_to_screen(double ex, double ey, double ez, matrix * to_render, Uint32 color) {
+void draw_to_screen(double ex, double ey, double ez, matrix * to_render, Uint32 color, int should_fill) {
     convert_to_eye_coordinates(ex, ey, ez, &to_render);
     struct point eye;
     eye.x = ex;
     eye.y = ey;
     eye.z = ez;
-    draw_triangles(to_render, eye, color);
+    draw_triangles(to_render, eye, color, should_fill);
 }
 
 void add_triangle_to_render( double x1, double y1, double z1,
@@ -70,7 +70,7 @@ void convert_from_screen(matrix * to_render) {
     }
 }
 
-void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
+void draw_triangles(matrix * to_render, struct point eye, Uint32 color, int should_fill){
     int startX = 6; //Start at 6 because our matrix begins with 4
                     //Empty slots
     struct point p1, p2, p3;
@@ -112,16 +112,16 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */
-        /*
-        matrix * m = fill_triangle( p1, p2, p3);
-        int p = 0;
-        while(p < m->width) {
-            draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p][2],
-                        m->mat[p+1][0], m->mat[p+1][1], m->mat[p+1][2],
-                        *(Uint32 *)&color);
-            p += 2;
+        if(should_fill) {
+            matrix * m = fill_triangle( p1, p2, p3);
+            int p = 0;
+            while(p < m->width) {
+                draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p][2],
+                            m->mat[p+1][0], m->mat[p+1][1], m->mat[p+1][2],
+                            *(Uint32 *)&color);
+                p += 2;
+            }
         }
-        */
         //End of filling
         startX += 3;
     }

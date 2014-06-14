@@ -28,6 +28,7 @@ typedef struct {
     int id;
     int object_number;
     int movable;
+    int should_fill;
     u_int32_t color;
     double r;
     double x, y, z; //current x, y, z

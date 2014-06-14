@@ -30,7 +30,8 @@ void display_objects() {
         ts[2] = objects[i]->z;
         matrix t = translation_matrix(ts);
         matrix to_render = multiply_matrix(t, *(objects[i]->mat));
-        draw_to_screen(eye.x, eye.y, eye.z, &to_render, objects[i]->color);
+        draw_to_screen(eye.x, eye.y, eye.z, &to_render, 
+                objects[i]->color, objects[i]->should_fill);
         i++;
     }
 

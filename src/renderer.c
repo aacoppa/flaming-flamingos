@@ -97,18 +97,18 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
         //Draw the three lines
         //
 
-        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-                to_render->mat[startX - 2][2], to_render->mat[startX - 1][0], 
-                to_render->mat[startX - 1][1], to_render->mat[startX - 1][2],
-                *(Uint32 *)&color);
-        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-                to_render->mat[startX - 2][2], to_render->mat[startX][0], 
-                to_render->mat[startX][1], to_render->mat[startX][2],
-                *(Uint32 *)&color);
-        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX - 1][1],
-                to_render->mat[startX - 1][2], to_render->mat[startX][0], 
-                to_render->mat[startX][1], to_render->mat[startX][2],
-                *(Uint32 *)&color);
+//        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
+//                to_render->mat[startX - 2][2], to_render->mat[startX - 1][0], 
+//                to_render->mat[startX - 1][1], to_render->mat[startX - 1][2],
+//                *(Uint32 *)&color);
+//        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
+//                to_render->mat[startX - 2][2], to_render->mat[startX][0], 
+//                to_render->mat[startX][1], to_render->mat[startX][2],
+//                *(Uint32 *)&color);
+//        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX - 1][1],
+//                to_render->mat[startX - 1][2], to_render->mat[startX][0], 
+//                to_render->mat[startX][1], to_render->mat[startX][2],
+//                *(Uint32 *)&color);
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */
@@ -118,6 +118,8 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color){
             draw_line_d(m->mat[p][0], m->mat[p][1], m->mat[p][2],
                         m->mat[p+1][0], m->mat[p+1][1], m->mat[p+1][2],
                         *(Uint32 *)&color);
+            renderScreen();
+            SDL_Delay(10);
             p += 2;
         }
         //End of filling

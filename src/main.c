@@ -23,7 +23,7 @@ int main(int argc, char ** argv) {
 
     struct point p2;
     p2.x = -1;
-    p2.y = -1;
+    p2.y = 1;
     p2.z = 0;
 
     struct point p3;
@@ -44,13 +44,13 @@ int main(int argc, char ** argv) {
     
     //draw_sphere(-1, 0, 0, 1, m);
 
-    double theta = 0;
+    double theta = .1;
     while(1) {
         clearScreen();
         matrix transformer = rotation_matrix_z(theta);
         matrix rend = multiply_matrix(transformer, *m);
         draw_to_screen(0, 0, -5, &rend, blue);
         renderScreen();
-        theta += .01;
+        //theta += .01;
     }
 }

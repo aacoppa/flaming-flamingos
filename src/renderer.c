@@ -91,24 +91,24 @@ void draw_triangles(matrix * to_render, struct point eye, Uint32 color, int shou
          */
         if(get_direction(p1, p2, p3, eye) < 0) {
             //Thus we can cull right here
-            //startX += 3;
-            //continue;
+            startX += 3;
+            continue;
         }
         //Draw the three lines
         //
 
-//        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-//                to_render->mat[startX - 2][2], to_render->mat[startX - 1][0], 
-//                to_render->mat[startX - 1][1], to_render->mat[startX - 1][2],
-//                *(Uint32 *)&color);
-//        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
-//                to_render->mat[startX - 2][2], to_render->mat[startX][0], 
-//                to_render->mat[startX][1], to_render->mat[startX][2],
-//                *(Uint32 *)&color);
-//        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX - 1][1],
-//                to_render->mat[startX - 1][2], to_render->mat[startX][0], 
-//                to_render->mat[startX][1], to_render->mat[startX][2],
-//                *(Uint32 *)&color);
+        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
+                to_render->mat[startX - 2][2], to_render->mat[startX - 1][0], 
+                to_render->mat[startX - 1][1], to_render->mat[startX - 1][2],
+                *(Uint32 *)&color);
+        draw_line_d( to_render->mat[startX - 2][0], to_render->mat[startX - 2][1],
+                to_render->mat[startX - 2][2], to_render->mat[startX][0], 
+                to_render->mat[startX][1], to_render->mat[startX][2],
+                *(Uint32 *)&color);
+        draw_line_d( to_render->mat[startX-1][0], to_render->mat[startX - 1][1],
+                to_render->mat[startX - 1][2], to_render->mat[startX][0], 
+                to_render->mat[startX][1], to_render->mat[startX][2],
+                *(Uint32 *)&color);
         /* If we want to fill this triangle then...
          * get a matrix of lines to be drawn by calling fill triangle
          */

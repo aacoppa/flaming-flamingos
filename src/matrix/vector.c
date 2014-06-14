@@ -36,7 +36,10 @@ double get_direction(struct point p1, struct point p2, struct point p3, struct p
 }
 
 double magnitude(vector v) {
-    return sqrt( pow(abs(v.x), 2) + pow(abs(v.y), 2) + pow(abs(v.z), 2) );
+    double x = v.x * v.x;
+    double y = v.y * v.y;
+    double z = v.z * v.z;
+    return sqrt(x + y + z);
 }
 
 void print_vector(vector v1) {

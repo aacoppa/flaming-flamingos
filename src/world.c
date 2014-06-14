@@ -48,9 +48,8 @@ void update_velocities() {
     for(i = 0; i < num_objects; i++) {
         object *obj = objects[i];
         for(j = 0; j < num_objects; j++) {
-            if(obj != objects[j]) {
+            if(i != j) {
                 if(colliding(obj, objects[j])) {
-                    printf("COLLIDING!!!\n");
                     collision(obj, objects[j]);
                 }
             }

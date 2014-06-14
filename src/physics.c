@@ -17,9 +17,11 @@
 int colliding(object *ball0, object *ball1) {
     vector diff;
     diff.x = ball0->x - ball1->x;
-    diff.y = ball0->x - ball1->y;
-    diff.z = ball0->x - ball1->z;
+    diff.y = ball0->y - ball1->y;
+    diff.z = ball0->z - ball1->z;
 
+    print_vector(diff); 
+    printf("%f\n", magnitude(diff));
     if (magnitude(diff) > ball0->r + ball1->r)
         return 0;
     else

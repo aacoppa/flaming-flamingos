@@ -142,10 +142,6 @@ matrix * fill_triangle(struct point pa, struct point pb, struct point pc) {
     //add_line_p(p2, new_p, m);
     add_line_p(new_p, p2, m);
 
-    /* Originally had top and bottom swapped
-     * without even realizing because screen
-     * origin is top left corner
-     */
     if(c == TOP_TRIANGLE || c == BOTH) {
         draw_top(p1, p2, new_p, m);
     }
@@ -160,7 +156,7 @@ matrix * fill_triangle(struct point pa, struct point pb, struct point pc) {
     return m;
 }
 
-void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lines) {
+void draw_top(struct point p1, struct point p2, struct point p3, matrix * lines) {
 
     double z = p1.z;
     if(p2.z > z) z = p2.z;
@@ -202,7 +198,7 @@ void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lin
     }
 }
 
-void draw_top(struct point p1, struct point p2, struct point p3, matrix * lines) {
+void draw_bottom(struct point p1, struct point p2, struct point p3, matrix * lines) {
 
     double z = p1.z;
     if(p2.z > z) z = p2.z;

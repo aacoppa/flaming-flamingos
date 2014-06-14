@@ -11,6 +11,7 @@ void init_world() {
     objects[1] = malloc(sizeof(object));
     objects[1] = init_sphere(1, -0.5, 0, -.02, .02, 0, 1);
     objects[1]->r = .2;
+    objects[1]->should_fill = 1;
     objects[0]->color = blue;
     objects[1]->color = green;
 }

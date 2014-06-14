@@ -44,11 +44,13 @@ int main(int argc, char ** argv) {
     
     draw_sphere(-1, 0, 0, 1, m);
 
+    double theta = 0;
     while(1) {
         clearScreen();
-        matrix transformer = init_identity(4);
+        matrix transformer = rotation_matrix_x(theta);
         matrix rend = multiply_matrix(transformer, *m);
         draw_to_screen(0, 0, -5, &rend, blue);
         renderScreen();
+        theta += .01;
     }
 }

@@ -36,7 +36,23 @@ void draw_triangles_in_sphere( struct point ** points, matrix * to_render ) {
                 struct point p2 = points[i - 1][j - 1];
                 struct point p3 = points[i][j];
                 struct point p4 = points[i][j-1];
-                if(i != 1) {
+
+                if(i == N_POINTS) {
+                    struct point p = points[N_POINTS][0];
+                    add_triangle_to_render(p1.x, p1.y, p1.z,
+                                           p2.x, p2.y, p2.z,
+                                           p.x, p.y, p.z,
+                                           to_render);
+                }
+                else if(i == 1) {
+                    struct point p = points[0][0];
+                    add_triangle_to_render(p4.x, p4.y, p4.z,
+                                           p3.x, p3.y, p3.z,
+                                           p.x, p.y, p.z,
+                                           to_render);
+                                         
+                }
+                else {
                 add_triangle_to_render(p3.x, p3.y, p3.z,
                                        p1.x, p1.y, p1.z,
                                        p4.x, p4.y, p4.z,
@@ -45,16 +61,8 @@ void draw_triangles_in_sphere( struct point ** points, matrix * to_render ) {
                                          p1.x, p1.y, p1.z,
                                          p2.x, p2.y, p2.z,
                                          to_render);
+                }
 
-                }
-                else {
-                    struct point p = points[0][0];
-                    add_triangle_to_render(p4.x, p4.y, p4.z,
-                                           p3.x, p3.y, p3.z,
-                                           p.x, p.y, p.z,
-                                           to_render);
-                                         
-                }
                 /*} else {
                 add_triangle_to_render(p1.x, p1.y, p1.z,
                                        p3.x, p3.y, p3.z,

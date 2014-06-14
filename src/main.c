@@ -7,7 +7,6 @@
 #include "shapes/sphere.h"
 #include "world.h"
 
-int render_test();
 int main(int argc, char ** argv) {
     init_world();
     while(1) { 

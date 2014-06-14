@@ -7,9 +7,9 @@ void init_world() {
     eye.x = 0;
     eye.y = 0;
     eye.z = -5;
-    objects[0] = init_sphere(-1, 0, 0, .01, 0, 0, 0);
+    objects[0] = init_sphere(-1, 0.3, 0, .02, -0.01, 0, 0);
     objects[1] = malloc(sizeof(object));
-    objects[1] = init_sphere(1, 0, 0, -.01, 0, 0, 1);
+    objects[1] = init_sphere(1, -0.5, 0, -.02, .02, 0, 1);
 
     objects[0]->color = blue;
     objects[1]->color = green;

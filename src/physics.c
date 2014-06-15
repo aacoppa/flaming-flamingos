@@ -20,7 +20,7 @@ int colliding(object *ball0, object *ball1) {
     diff.y = ball0->y - ball1->y;
     diff.z = ball0->z - ball1->z;
 
-    
+
     if (magnitude(diff) > ball0->r + ball1->r)
         return 0;
     else

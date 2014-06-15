@@ -18,6 +18,7 @@ int num_objects;
 object ** objects;
 //TO BE PUBLICLY CALLED
 void init_world();
+void init_boundaries();
 void go();
 //Calls the next two functions...
 void display_objects();

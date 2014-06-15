@@ -28,7 +28,6 @@ void draw_box(double w, double h, double d, double x, double y, double z, matrix
 struct face * get_box_faces(double width, double height, double depth,
                           double x, double y, double z) {
     struct face * faces = malloc(6 * sizeof(struct face));
-    double left_corner_x = x - width / 2;
     int i, j;
     faces[0].points = malloc(N_DIVISIONS * sizeof(struct point *));
     double increment_x = x - width / 2;
@@ -61,7 +60,7 @@ struct face * get_box_faces(double width, double height, double depth,
         faces[3].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
 
         for(j = 0; j < N_DIVISIONS; j++) {
-        
+
             faces[2].points[i][j].x = increment_x;
             faces[2].points[i][j].y = increment_y;
             faces[2].points[i][j].z = increment_z;
@@ -84,7 +83,7 @@ struct face * get_box_faces(double width, double height, double depth,
         faces[5].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
 
         for(j = 0; j < N_DIVISIONS; j++) {
-            
+
             faces[4].points[i][j].x = increment_x;
             faces[4].points[i][j].y = increment_y;
             faces[4].points[i][j].z = increment_z;
@@ -118,7 +117,7 @@ void draw_triangles_in_box( struct face * faces, matrix * to_render ) {
                             p2.x, p2.y, p2.z,
                             p1.x, p1.y, p1.z,
                             to_render);
- 
+
                 } else {
                     add_triangle_to_render(p1.x, p1.y, p1.z,
                             p4.x, p4.y, p4.z,
@@ -129,7 +128,7 @@ void draw_triangles_in_box( struct face * faces, matrix * to_render ) {
                             p1.x, p1.y, p1.z,
                             to_render);
 
-                   
+
                     // add_triangle_to_render(p1.x, p1.y, p1.z,
                    //         p3.x, p3.y, p3.z,
                    //         p2.x, p2.y, p2.z,

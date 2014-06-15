@@ -2,18 +2,48 @@
 
 void init_world() {
     init_screen(-2, -2, 2, 2, 500, 500);
-    num_objects = 2;
-    objects = malloc(sizeof(object *) * num_objects);
+    init_boundaries();
+
+    num_objects += 2;
+    objects = realloc(objects, sizeof(object *) * num_objects);
+    objects[num_objects - 2] = init_sphere(-1, 0.3, 0, .02, -0.01, 0, num_objects - 2);
+    objects[num_objects - 1] = malloc(sizeof(object));
+    objects[num_objects - 1] = init_sphere(1, -0.5, 0, -.02, .02, 0, num_objects - 1);
+
+    objects[num_objects - 1]->should_fill = 0;
+    objects[num_objects - 1]->r = 0.2;
+    objects[num_objects - 2]->r = 0.5;
+    objects[num_objects - 2]->color = blue;
+    objects[num_objects - 1]->color = green;
+
     eye.x = 0;
     eye.y = 0;
     eye.z = -5;
-    objects[0] = init_sphere(-1, 0.3, 0, .02, -0.01, 0, 0);
-    objects[1] = malloc(sizeof(object));
-    objects[1] = init_sphere(1, -0.5, 0, -.02, .02, 0, 1);
-    objects[1]->r = .2;
-    objects[1]->should_fill = 1;
-    objects[0]->color = blue;
-    objects[1]->color = green;
+}
+
+void init_boundaries() {
+    num_objects = 1;
+    objects = malloc(sizeof(object *) * num_objects);
+
+    objects[0] = init_box(0, 4, 4, -2, 0, 2, 0);
+    objects[0]->color = white;
+
+    /*
+    objects[1] = init_box(0, 4, 10, 2, 0, 5, 0);
+    objects[1]->color = white;
+
+    objects[2] = init_box(8, 8, 0, 0, 0, 7.5, 0);
+    objects[2]->color = white;
+
+    objects[3] = init_box(8, 0, 10, 0, 2, 10, 0);
+    objects[3]->color = white;
+
+    objects[4] = init_box(8, 8, 0, 0, 0, 2.5, 0);
+    objects[4]->color = white;
+
+    objects[3] = init_box(8, 0, 10, 0, -2, 5, 0);
+    objects[3]->color = white;
+    */
 }
 
 void go() {
@@ -37,15 +67,19 @@ void display_objects() {
                                  &transformer);
         multiply_matrix_onto_self(translation_matrix(ts),
                                  &transformer);
-        double rs[3];
-        rs[0] = objects[i]->r;
-        rs[1] = rs[0];
-        rs[2] = rs[0];
-        multiply_matrix_onto_self(scale_matrix(rs), &transformer);
+
+        //Make sure to translate to the origin before scaling
+        if (objects[i]->id == SPHERE_ID) {
+            double rs[3];
+            rs[0] = objects[i]->r;
+            rs[1] = rs[0];
+            rs[2] = rs[0];
+            multiply_matrix_onto_self(scale_matrix(rs), &transformer);
+        }
         matrix to_render = multiply_matrix(transformer, *(objects[i]->mat));
 
 
-        draw_to_screen(eye.x, eye.y, eye.z, &to_render, 
+        draw_to_screen(eye.x, eye.y, eye.z, &to_render,
                 objects[i]->color, objects[i]->should_fill);
         i++;
     }
@@ -90,37 +124,3 @@ void update_positions() {
         i++;
     }
 }
-
-/*
-void add_object() {
-    num_objects += 1;
-    int index = num_objects - 1;
-
-    objects = realloc(objects, (num_objects + 1) * sizeof(object));
-    objects[index] = malloc(sizeof(object));
-
-    double x = ( (double)rand() / (double)RAND_MAX ) * 2.0,
-        y = ( (double)rand() / (double)RAND_MAX ) * 2.0,
-        z = ( (double)rand() / (double)RAND_MAX ) * 2.0,
-        r = 0.4;
-    double vx = ( (double)rand() / (double)RAND_MAX ) * 0.1,
-        vy = ( (double)rand() / (double)RAND_MAX ) * 0.1,
-        vz = ( (double)rand() / (double)RAND_MAX ) * 0.1;
-
-    matrix mat = init_identity(4);
-    draw_sphere(x, y, z, r, &mat);
-
-    objects[index]->id = SPHERE_ID;
-    objects[index]->object_number = index;
-    objects[index]->movable = 1;
-    objects[index]->r = 0.4;
-    objects[index]->x = x;
-    objects[index]->y = y;
-    objects[index]->z = z;
-    objects[index]->vx = vx;
-    objects[index]->vy = vy;
-    objects[index]->vz = vz;
-    objects[index]->mat = malloc(sizeof(matrix));
-    *(objects[index]->mat) = mat;
-}
-*/

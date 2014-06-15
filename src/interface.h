@@ -42,6 +42,7 @@ typedef struct {
 #include "renderer.h"
 #include "matrix/matrix.h"
 #include "shapes/sphere.h"
+#include "shapes/box.h"
 #include "world.h"
 
 
@@ -54,6 +55,9 @@ typedef struct {
  */
 
 object * init_sphere(double, double, double,
+                     double, double, double,
+                     int);
+object * init_box(double, double, double,
                      double, double, double,
                      int);
 

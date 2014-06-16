@@ -6,9 +6,9 @@ void init_world() {
 
     num_objects += 2;
     objects = realloc(objects, sizeof(object *) * num_objects);
-    objects[num_objects - 2] = init_sphere(-1, 0.3, 0, .02, -0.01, 0, num_objects - 2);
+    objects[num_objects - 2] = init_sphere(-1, 0.3, 2, .02, -0.01, 0, num_objects - 2);
     objects[num_objects - 1] = malloc(sizeof(object));
-    objects[num_objects - 1] = init_sphere(1, -0.5, 0, -.02, .02, 0, num_objects - 1);
+    objects[num_objects - 1] = init_sphere(1, -0.5, 2, -.02, .02, 0, num_objects - 1);
 
     objects[num_objects - 1]->should_fill = 0;
     objects[num_objects - 1]->r = 0.2;
@@ -22,28 +22,26 @@ void init_world() {
 }
 
 void init_boundaries() {
-    num_objects = 1;
+    num_objects = 6;
     objects = malloc(sizeof(object *) * num_objects);
 
-    objects[0] = init_box(0, 4, 4, -2, 0, 2, 0);
+    objects[0] = init_box(4, 4, 4, -4, 0, 2, 0);
     objects[0]->color = white;
 
-    /*
-    objects[1] = init_box(0, 4, 10, 2, 0, 5, 0);
+    objects[1] = init_box(4, 4, 4, 4, 0, 2, 1);
     objects[1]->color = white;
 
-    objects[2] = init_box(8, 8, 0, 0, 0, 7.5, 0);
+    objects[2] = init_box(4, 4, 4, 0, 0, 6, 0);
     objects[2]->color = white;
 
-    objects[3] = init_box(8, 0, 10, 0, 2, 10, 0);
+    objects[3] = init_box(4, 4, 4, 0, -4, 2, 0);
     objects[3]->color = white;
 
-    objects[4] = init_box(8, 8, 0, 0, 0, 2.5, 0);
+    objects[4] = init_box(4, 4, 4, 0, 4, 2, 0);
     objects[4]->color = white;
 
-    objects[3] = init_box(8, 0, 10, 0, -2, 5, 0);
-    objects[3]->color = white;
-    */
+    objects[5] = init_box(4, 4, 4, 0, 0, -2, 0);
+    objects[5]->visible = 0;
 }
 
 void go() {
@@ -55,32 +53,37 @@ void display_objects() {
     clearScreen();
     int i = 0;
     while(i < num_objects) {
-        double ts[3];
-        ts[0] = objects[i]->x;
-        ts[1] = objects[i]->y;
-        ts[2] = objects[i]->z;
+        matrix transformer = init_identity(4);
 
-        matrix transformer = rotation_matrix_x(objects[i]->theta_x);
-        multiply_matrix_onto_self(rotation_matrix_y(objects[i]->theta_y),
-                                 &transformer);
-        multiply_matrix_onto_self(rotation_matrix_z(objects[i]->theta_z),
-                                 &transformer);
-        multiply_matrix_onto_self(translation_matrix(ts),
-                                 &transformer);
+        if(objects[i]->movable) {
+            double ts[3], rs[3];
+            ts[0] = objects[i]->x;
+            ts[1] = objects[i]->y;
+            ts[2] = objects[i]->z;
 
-        //Make sure to translate to the origin before scaling
-        if (objects[i]->id == SPHERE_ID) {
-            double rs[3];
             rs[0] = objects[i]->r;
             rs[1] = rs[0];
             rs[2] = rs[0];
+
+            transformer = rotation_matrix_x(objects[i]->theta_x);
+            multiply_matrix_onto_self(rotation_matrix_y(objects[i]->theta_y),
+                                    &transformer);
+            multiply_matrix_onto_self(rotation_matrix_z(objects[i]->theta_z),
+                                    &transformer);
+
             multiply_matrix_onto_self(scale_matrix(rs), &transformer);
+
+            multiply_matrix_onto_self(translation_matrix(ts),
+                                    &transformer);
+
         }
         matrix to_render = multiply_matrix(transformer, *(objects[i]->mat));
 
+        if(objects[i]->visible) {
+            draw_to_screen(eye.x, eye.y, eye.z, &to_render,
+                    objects[i]->color, objects[i]->should_fill);
+        }
 
-        draw_to_screen(eye.x, eye.y, eye.z, &to_render,
-                objects[i]->color, objects[i]->should_fill);
         i++;
     }
 
@@ -97,9 +100,7 @@ void update_velocities() {
     for(i = 0; i < num_objects; i++) {
         object *obj = objects[i];
         for(j = i + 1; j < num_objects; j++) {
-            if(colliding(obj, objects[j])) {
-                collision(obj, objects[j]);
-            }
+            collide(obj, objects[j]);
         }
     }
 }

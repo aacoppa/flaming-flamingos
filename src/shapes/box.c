@@ -28,8 +28,9 @@ void draw_box(double w, double h, double d, double x, double y, double z, matrix
 struct face * get_box_faces(double width, double height, double depth,
                           double x, double y, double z) {
     struct face * faces = malloc(6 * sizeof(struct face));
-    int i, j;
     faces[0].points = malloc(N_DIVISIONS * sizeof(struct point *));
+
+    int i, j;
     double increment_x = x - width / 2;
     double increment_y = y - height / 2;
     double increment_z = z - depth / 2;
@@ -38,6 +39,7 @@ struct face * get_box_faces(double width, double height, double depth,
         increment_y = y - height / 2;
         faces[0].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
         faces[1].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
+
         for(j = 0; j < N_DIVISIONS; j++) {
             faces[0].points[i][j].x = increment_x;
             faces[0].points[i][j].y = increment_y;
@@ -51,6 +53,7 @@ struct face * get_box_faces(double width, double height, double depth,
         }
         increment_x = increment_x + width / (N_DIVISIONS - 1);
     }
+
     increment_x = x - width / 2;
     increment_y = y - height / 2;
     increment_z = z - depth / 2;
@@ -60,7 +63,6 @@ struct face * get_box_faces(double width, double height, double depth,
         faces[3].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
 
         for(j = 0; j < N_DIVISIONS; j++) {
-
             faces[2].points[i][j].x = increment_x;
             faces[2].points[i][j].y = increment_y;
             faces[2].points[i][j].z = increment_z;
@@ -83,7 +85,6 @@ struct face * get_box_faces(double width, double height, double depth,
         faces[5].points[i] = malloc(N_DIVISIONS * sizeof(struct point));
 
         for(j = 0; j < N_DIVISIONS; j++) {
-
             faces[4].points[i][j].x = increment_x;
             faces[4].points[i][j].y = increment_y;
             faces[4].points[i][j].z = increment_z;
@@ -96,6 +97,7 @@ struct face * get_box_faces(double width, double height, double depth,
         }
         increment_z = increment_z + depth / (N_DIVISIONS - 1);
     }
+
     return faces;
 }
 

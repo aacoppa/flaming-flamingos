@@ -18,6 +18,7 @@ vector get_vector(struct point p1, struct point p2) {
 double dot_product(vector v1, vector v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
+
 vector cross_product(vector v1, vector v2) {
     vector ret;
     ret.x = v1.y * v2.z - v1.z * v2.y;
@@ -37,6 +38,13 @@ double get_direction(struct point p1, struct point p2, struct point p3, struct p
 
 double magnitude(vector v) {
     return sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
+}
+
+void normalize(vector * v) {
+    double m = magnitude(*v);
+    v->x /= m;
+    v->y /= m;
+    v->z /= m;
 }
 
 void print_vector(vector v1) {
